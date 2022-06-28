@@ -54,10 +54,13 @@ function generatePassword() {
   console.log(uLetterConfirm)
   console.log(lLetterConfirm)
 
+  var lowTupTspT = lowerLetters.concat(uLetterConfirm && sLetterConfirm)
 
- 
+
   
-  return(passwordLength)
+
+  
+  
 }
 
 // Add event listener to generate button
