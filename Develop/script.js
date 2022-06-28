@@ -1,80 +1,65 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// Variables for password generations
+var length;
+var chars = "";
+
+
 // Write password to the #password input
 function writePassword() {
-  
- 
-  
+  getParameters();
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
-}
-
-function generatePassword() {
-  // Ask for password length between 8 and 128
-// pcik a number equal to or greater than 128 
-
-  var passwordLength = parseInt(prompt("Enter desired password length"))
-  console.log(passwordLength)
-  
-    if (passwordLength > 128) {
-    return("Please enter a length between 8-128 characters")
-  }
-
-  if (passwordLength < 8) {
-    return("Please enter a length between 8-128 characters")
-  }
-
-
-  // Code adding lowercase letters as an option   
-  var lowerLetters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-  // Confirmation that lower case should be included 
-  var lLetterConfirm = confirm("Do you wish to have your password contain lower case letters?")
-
-
-  // code adding uppdercase letters as an options 
-  var upperLetters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-  'M', 'N', 'O', 'P', 'Q', 'R',  'S', 'T', 'U', 'V', 'W', 'X',
-  'Y', 'Z' ]
-
-  // Confirmation that upper case should be included
-  var uLetterConfirm = confirm("Do you wish to have your password contain lower case letters?")
-
-  // code adding special characters as an option
-  var specialChar = ['!','@','#','$','%','^','&','*','(',')']
-  
-  // Confirmation that special characters should be included
-
-  var sLetterConfirm = confirm("Do you wish to have special characters included?")
-
-  console.log(sLetterConfirm)
-  console.log(uLetterConfirm)
-  console.log(lLetterConfirm)
-
-  var lowTupTspT = lowerLetters.concat(uLetterConfirm && sLetterConfirm)
-
-
-  
-
-  
-  
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+// for loop used to create password
+function generatePassword () {
+  var password = "";
+  for ( var i = 0; i < length; i++ ) {
+    password += chars.charAt(Math.floor(Math.random() * 
+    chars.length));
+  }
+  return password;
+}
 
 
-
-// Ask for password length between 8 and 128
-
-// ask for include upper case
-// ask for lower case
-// ask for ask for numbers
-// ask for special characters 
-// must include one for each time it says yes 
-
-// once prompts are answered then text is displayed 
+function getParameters() {
+  chars = "";
+  // Code for determining password length. Requirement that code be over 8 chars
+  length = prompt("How long do you wish your password to be. Please input a value betweem 8 - 128");
+  if (length < 8) {
+    alert("Desired password length too short. Please choose a value between 8-128");
+    return getParameters();
+    // Code to ensure password is not greater than 128 chars
+  } else if (length > 128) {
+    alert("Desired password length too long. Please choose a value between 8-128");
+    return null;
+  } 
+  // Code to include lower case
+  if (confirm("Do you wish to have your password include lower case letters?")) {
+    chars += "abcdefghijklmnopqrstuvwxyz";
+  }
+  // Code it include upper case
+  if (confirm("Do you wish to have your password include upper case letters?")) {
+    chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  // Code to include passwords
+  if (confirm("Do you wish to have your password include numbers?")) {
+    chars += "1234567890";
+  }
+  // Code to include special chars
+  if (confirm("Do you wish to have your password include special characters?")) {
+    chars += "!@#$%^&*()_+";
+  }
+  // Code to ensure password has contents 
+  if (chars.length == 0) {
+    alert("Your password must be composed of atleast 8 characters");
+    getParameters();
+  }
+}
